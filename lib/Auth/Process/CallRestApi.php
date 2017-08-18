@@ -150,7 +150,7 @@ class sspmod_advancedauthfilters_Auth_Process_CallRestApi extends SimpleSAML_Aut
         }
 
         //additional info
-        if ($debug) {
+        if ($this->debug) {
             $attributes[$name.':fullurl'] = array($this->api_url.$this->action);
         }
     }

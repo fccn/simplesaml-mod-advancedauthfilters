@@ -1,0 +1,8 @@
+{
+    "name": "fccn/simplesamlphp-module-advancedauthfilters",
+    "description": "A collection of advanced authentication processing filters",
+    "type": "simplesamlphp-module",
+    "require": {
+        "simplesamlphp/composer-module-installer": "~1.0"
+    }
+}

@@ -116,6 +116,7 @@ class sspmod_advancedauthfilters_Auth_Process_CallRestApi extends SimpleSAML_Aut
      */
     public function process(&$request)
     {
+        SimpleSAML_Logger::debug('[CallRestAPI] calling process...');
         assert('is_array($request)');
         assert('array_key_exists("Attributes", $request)');
 
@@ -164,12 +165,13 @@ class sspmod_advancedauthfilters_Auth_Process_CallRestApi extends SimpleSAML_Aut
 
         /*Creates the endpoint URL*/
         $request_url = $this->api_url.$this->action;
+        SimpleSAML_Logger::debug('[CallRestAPI] making API request to '.$request_url);
 
         /* create post fields from parameters */
         $request_fields = http_build_query($this->params);
         /*Check to see queried fields*/
         /*Used for troubleshooting/debugging*/
-        //var_dump($request_fields);
+        //SimpleSAML_Logger::debug('[CallRestAPI] - API request with fields: '.json_encode($request_fields));
 
         /*Preparing Query...*/
         $ch = curl_init();
@@ -183,18 +185,21 @@ class sspmod_advancedauthfilters_Auth_Process_CallRestApi extends SimpleSAML_Aut
         $response = curl_exec($ch);
 
         /*Check for any errors*/
-        $errorMessage = curl_exec($ch);
+        $errorMessage = curl_error($ch);
         curl_close($ch);
 
         /*Will print back the response from the call*/
         /*Used for troubleshooting/debugging		*/
-        //echo $request_url;
-        //var_dump($data);
-        //var_dump($response);
+        //SimpleSAML_Logger::debug('[CallRestAPI] - API request url: '. $request_url);
+        //SimpleSAML_Logger::debug('[CallRestAPI] - API request with data: '.json_encode($data));
+        //SimpleSAML_Logger::debug('[CallRestAPI] - API response: '.json_encode($response));
+        //SimpleSAML_Logger::debug('[CallRestAPI] - API error message: '.json_encode($errorMessage));
         if (!empty($errorMessage)) {
+            SimpleSAML_Logger::error("[CallRestAPI] - API call returned error: ".json_encode($errorMessage));
             return $errorMessage;
         }
         if (empty($response)) {
+            SimpleSAML_Logger::error("[CallRestAPI] - API call returned empty response");
             return array("error" => array(
                 "code" => 500,
                 "message" => "Unable to get response from REST API."

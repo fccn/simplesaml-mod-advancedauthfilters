@@ -1,1 +1,20 @@
-...
+#Advancedauthfilters module
+
+This module provides a selection of authentication processing filters for SimpleSAMLphp
+
+`advancedauthfilters:AttributeAddIdPInfo`
+: adds information about the entity-id of the IdP where the user was authenticated
+
+`advancedauthfilters:CallRestApi`
+: makes a call to a rest API of choice and presents the response in a new attribute
+
+`advancedauthfilters:ValidateParameters`
+: validates if a set of SAML parameters are returned by the IdP and redirects the user to an error page if the parameters are not available.
+
+## `advancedauthfilters:AttributeAddIdPInfo`
+
+
+## `advancedauthfilters:CallRestApi`
+
+
+## `advancedauthfilters:CheckParameters`
